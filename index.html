@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defa Tri Arnetta — Broadcasting × Film × Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0A0714;
+    --bg-navy:#160B2E;
+    --violet:#8B5CF6;
+    --magenta:#EC4899;
+    --amber:#FBBF24;
+    --cream:#F5F1FF;
+    --cream-dim:rgba(245,241,255,0.6);
+    --cream-faint:rgba(245,241,255,0.14);
+    --grad: linear-gradient(120deg, var(--violet), var(--magenta) 55%, var(--amber));
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-deep);
+    color:var(--cream);
+    font-family:'Manrope',sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    overflow-x:hidden;
+    position:relative;
+  }
+  ::selection{background:var(--magenta);color:var(--cream);}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.01em;}
+
+  /* ---------- ambient animated background ---------- */
+  .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.45;}
+  .blob-1{width:520px;height:520px;background:var(--violet);top:-10%;left:-8%;animation:float1 22s ease-in-out infinite;}
+  .blob-2{width:460px;height:460px;background:var(--magenta);top:35%;right:-10%;animation:float2 26s ease-in-out infinite;}
+  .blob-3{width:380px;height:380px;background:var(--amber);bottom:-8%;left:20%;animation:float3 24s ease-in-out infinite;opacity:0.28;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,80px) scale(1.15);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-70px,50px) scale(1.1);}}
+  @keyframes float3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-60px) scale(1.2);}}
+  main{position:relative;z-index:1;}
+
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-track{background:var(--bg-deep);}
+  ::-webkit-scrollbar-thumb{background:var(--grad);border-radius:8px;}
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:0.7rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .grad-text{
+    background:var(--grad);background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:gradShift 6s linear infinite;
+  }
+  @keyframes gradShift{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.5rem 3rem;
+    background:linear-gradient(to bottom, rgba(10,7,20,0.9), rgba(10,7,20,0));
+    backdrop-filter:blur(3px);
+  }
+  .nav-mark{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:0.02em;}
+  .nav-mark span{color:var(--amber);}
+  .nav-links{display:flex;gap:2rem;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;}
+  .nav-links a{color:var(--cream-dim);transition:color .3s;position:relative;white-space:nowrap;padding-bottom:4px;}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--grad);transition:width .3s ease;}
+  .nav-links a:hover,.nav-links a.active{color:var(--cream);}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+  .nav-num{color:var(--amber);margin-right:0.3rem;}
+  @media(max-width:1000px){.nav-links{display:none;}}
+
+  section{padding:7rem 3rem;max-width:1180px;margin:0 auto;position:relative;}
+  .section-head{margin-bottom:3.2rem;}
+  .section-title{font-size:2.7rem;margin-top:0.6rem;}
+  .rule{width:60px;height:3px;border-radius:2px;background:var(--grad);margin-top:1.1rem;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding-top:8rem;position:relative;
+  }
+  .hero .eyebrow{margin-bottom:1.4rem;}
+  .hero h1{font-size:clamp(2.6rem,6.4vw,5.4rem);line-height:1.03;font-weight:800;max-width:15ch;}
+  .hero p.lede{max-width:67ch;margin-top:1.7rem;color:var(--cream-dim);font-size:1.05rem;text-align: justify;}
+  .hero-frame{
+    position:absolute;right:3rem;top:65%;transform:translateY(-50%);
+    width:260px;height:340px;border:1px solid var(--cream-faint);border-radius:18px;
+    display:flex;align-items:flex-end;padding:1.5rem;
+    font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;color:var(--cream-dim);
+    background:linear-gradient(160deg, rgba(139,92,246,0.14), rgba(236,72,153,0.08));
+    background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKWWdXPi88zzZI4Pq7lvFun1OzlwauXyJTwEl_ZBulcvypREVS7O3qKFzX5UkNM-l9DDRb7705BWHaGG2SsIHQZLqEupnHdY9fqCElNkyMVR8CXjGq4A2xPkzozsBkNhJ-t78dCBJU-5qhDopZKbZiIzV6b2yLdF3E1xiL-MZpNmgOIDSMiDqIJsC4MOgK/s2015/profil.jpg');
+    background-size: cover;
+    animation:floatCard 7s ease-in-out infinite;
+    box-shadow:0 0 60px rgba(139,92,246,0.15);
+  }
+  @keyframes floatCard{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 14px));}}
+  @media(max-width:900px){.hero-frame{display:none;}}
+
+  .scroll-cue{position:absolute;bottom:2.6rem;left:3rem;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;color:var(--cream-dim);display:flex;align-items:center;gap:0.6rem;}
+  .scroll-cue .line{width:34px;height:1px;background:var(--amber);animation:pulseLine 1.8s ease-in-out infinite;}
+  @keyframes pulseLine{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+  /* ---------- ABOUT / PROFIL ---------- */
+  #tentang{border-top:1px solid var(--cream-faint);}
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.4fr;gap:4rem;align-items:start;}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr;}}
+  .id-card{
+    border-radius:20px;padding:2.2rem 2rem;position:relative;
+    background:linear-gradient(160deg, var(--bg-navy), rgba(22,11,46,0.5));
+    border:1px solid transparent;
+    background-clip:padding-box;
+    box-shadow:0 0 0 1px rgba(139,92,246,0.25), 0 20px 60px -20px rgba(139,92,246,0.35);
+    transition:transform .4s ease, box-shadow .4s ease;
+  }
+  .id-card:hover{transform:translateY(-6px);box-shadow:0 0 0 1px rgba(236,72,153,0.4), 0 30px 70px -20px rgba(236,72,153,0.35);}
+  .id-card .name{font-size:1.6rem;margin-bottom:0.3rem;font-weight:700;}
+  .id-card .role{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;color:var(--amber);text-transform:uppercase;margin-bottom:1.6rem;}
+  .id-row{display:flex;justify-content:space-between;padding:0.65rem 0;border-bottom:1px solid var(--cream-faint);font-size:0.85rem;}
+  .id-row:last-child{border-bottom:none;}
+  .id-row .k{color:var(--cream-dim);font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.06em;text-transform:uppercase;}
+  .id-row .v{text-align:right;max-width:60%;}
+
+  .about-copy p{color:var(--cream-dim);margin-bottom:1.2rem;max-width:60ch;text-align: justify;}
+  .about-copy strong{color:var(--cream);font-weight:600;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.6rem;}
+  .tag{border-radius:999px;padding:0.45rem 1rem;font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--bg-deep);background:var(--grad);background-size:200% auto;transition:background-position .4s;}
+  .tag:hover{background-position:100% 50%;}
+
+  /* ---------- PLACEHOLDER ---------- */
+  .placeholder{border-top:1px solid var(--cream-faint);}
+  .ph-body{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;}
+  .ph-body p{color:var(--cream-dim);max-width:52ch;}
+  .ph-status{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);border:1px dashed rgba(251,191,36,0.4);border-radius:999px;padding:0.55rem 1.1rem;white-space:nowrap;}
+
+  /* ---------- REFLEKSI / LK2 ---------- */
+  #refleksi{border-top:1px solid var(--cream-faint);}
+  .lk2-note{color:var(--cream-dim);max-width:66ch;font-size:0.92rem;margin-top:-1.6rem;margin-bottom:2.6rem;}
+  .lk2-note em{color:var(--amber);font-style:normal;font-weight:600;}
+
+  .course-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.6rem;}
+  .course-tab{
+    font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.03em;
+    padding:0.8rem 1.15rem;border-radius:12px;border:1px solid var(--cream-faint);background:rgba(255,255,255,0.02);color:var(--cream-dim);
+    cursor:pointer;transition:all .3s;text-align:left;
+  }
+  .course-tab:hover{border-color:rgba(139,92,246,0.5);color:var(--cream);transform:translateY(-2px);}
+  .course-tab.active{border-color:transparent;color:var(--bg-deep);background:var(--grad);font-weight:700;box-shadow:0 8px 24px -8px rgba(236,72,153,0.5);}
+  .course-tab .tab-index{display:block;font-size:0.6rem;opacity:0.7;margin-bottom:0.25rem;}
+
+  .course-panel{display:none;}
+  .course-panel.active{display:block;animation:fadeIn .5s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+  .course-heading{border-bottom:1px solid var(--cream-faint);padding-bottom:1.4rem;margin-bottom:2.4rem;position:relative;}
+  .course-heading::after{content:"";position:absolute;left:0;bottom:-1px;width:80px;height:2px;background:var(--grad);}
+  .course-heading h3{font-size:2rem;}
+  .course-heading .sub{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;color:var(--cream-dim);text-transform:uppercase;margin-top:0.4rem;}
+
+  .fourc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-bottom:2.6rem;}
+  @media(max-width:760px){.fourc-grid{grid-template-columns:1fr;}}
+  .fourc-card{
+    background:var(--bg-navy);border-radius:16px;padding:1.8rem 1.9rem;position:relative;overflow:hidden;
+    border:1px solid var(--cream-faint);transition:transform .35s ease, border-color .35s ease;
+  }
+  .fourc-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--grad);}
+  .fourc-card:hover{transform:translateY(-4px);border-color:rgba(236,72,153,0.35);}
+  .fourc-card .fourc-label{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.2rem;font-weight:700;}
+  .fourc-card .fourc-id{font-family:'Bricolage Grotesque',sans-serif;font-style:italic;font-size:0.85rem;color:var(--cream-dim);margin-bottom:0.9rem;display:block;}
+  .fourc-card p,.fourc-card li{text-align: justify;font-size:0.88rem;color:var(--cream-dim);}
+  .fourc-card ul{padding-left:1.1rem;margin-top:0.4rem;}
+  .fourc-card li{margin-bottom:0.35rem;}
+
+  .block-title{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;font-weight:700;}
+  .block-title::after{content:"";flex:1;height:1px;background:var(--cream-faint);}
+
+  .artifact-box{border-radius:18px;background:linear-gradient(160deg, rgba(139,92,246,0.1), rgba(236,72,153,0.04));border:1px solid rgba(139,92,246,0.3);padding:1.9rem 2.1rem;margin-bottom:2.6rem;transition:box-shadow .35s ease;}
+  .artifact-box:hover{box-shadow:0 20px 50px -25px rgba(139,92,246,0.5);}
+  .artifact-box .artifact-name{font-size:1.2rem;font-family:'Bricolage Grotesque',sans-serif;color:var(--cream);margin-bottom:0.6rem;font-weight:700;}
+  .artifact-box p{font-size:0.88rem;color:var(--cream-dim);margin-bottom:0.9rem;}
+  .artifact-links{display:flex;flex-wrap:wrap;gap:0.7rem;margin-bottom:1rem;}
+  .artifact-links a{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.04em;color:var(--amber);border-bottom:1px solid rgba(251,191,36,0.4);padding-bottom:2px;transition:color .3s;}
+  .artifact-links a:hover{color:var(--cream);border-color:var(--cream);}
+  .artifact-box ul{padding-left:1.1rem;}
+  .artifact-box li{font-size:0.86rem;color:var(--cream-dim);margin-bottom:0.5rem;}
+  .artifact-box li strong{color:var(--cream);font-weight:600;}
+
+  .praktis-box{border-radius:18px;padding:0.2rem 0;}
+  .praktis-box p{font-size:0.92rem;color:var(--cream-dim);margin-bottom:1rem;}
+  .praktis-box ul{padding-left:1.1rem;}
+  .praktis-box li{font-size:0.9rem;color:var(--cream-dim);margin-bottom:0.6rem;position:relative;}
+
+  footer{border-top:1px solid var(--cream-faint);padding:3rem;text-align:center;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;color:var(--cream-dim);}
+  footer span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="aurora">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<nav>
+  <div class="nav-mark">DEFA <span></span> TRI ARNETTA</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#tentang" class="active"><span class="nav-num">01</span>Tentang</a>
+    <a href="#refleksi"><span class="nav-num">02</span>Refleksi</a>
+  </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="eyebrow">Portofolio Digital Refleksi Pengalaman Belajar</div>
+  <h1>Broadcasting <span class="grad-text"></span> Dan <span class="grad-text"></span> Perfilman</h1>
+  <p class="lede"> Menjadi bagian dari PPG Prajabatan bukan hanya tentang belajar menjadi seorang guru, 
+    tetapi juga tentang mengenal kembali diri sendiri sebagai seorang pembelajar. 
+    Semester pertama menjadi perjalanan yang penuh dengan pengalaman, tantangan, penyesuaian, dan berbagai proses refleksi. 
+    Setiap mata kuliah, tugas, diskusi, dan pengalaman di lapangan memberikan pelajaran yang perlahan mengubah cara saya memandang pendidikan dan peran seorang guru. 
+    Portofolio ini menjadi ruang bagi saya untuk merekam perjalanan tersebut, melihat sejauh mana saya telah berkembang, 
+    dan merefleksikan pembelajaran yang akan menjadi bekal dalam menjalani profesi sebagai pendidik. 
+    <strong style="color:var(--cream)"></strong></p>
+  <div class="hero-frame"><span style="color: rgb(255, 255, 255); background-color: rgb(42, 7, 113);">DEFA TRI ARNETTA<br>Broadcasting &amp; Perfilman</span></div>
+</section>
+
+<!-- TENTANG / PROFIL -->
+<section id="tentang">
+  <div class="section-head reveal">
+    <div class="eyebrow">01 — Tentang Saya</div>
+    <h2 class="section-title">Profil</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="id-card reveal">
+      <div class="name">Defa Tri Arnetta</div>
+      <div class="role">PPG Prajabatan</div>
+      <div class="id-row"><span class="k">LPTK</span><span class="v">Universitas Negeri Surabaya</span></div>
+      <div class="id-row"><span class="k">NIPD</span><span class="v">2500103916862023</span></div>
+      <div class="id-row"><span class="k">Prodi</span><span class="v">Broadcasting dan Perfilman</span></div>
+    </div>
+    <div class="about-copy reveal">
+      <p>Saya seorang mahasiswa PPG Prajabatan yang tengah mempersiapkan diri menjadi pendidik profesional, reflektif, dan peka terhadap kebutuhan peserta didik. Bagi saya, mengajar bukan sekadar menyampaikan materi, melainkan menciptakan pengalaman belajar yang bermakna dan membangun hubungan positif dengan peserta didik.</p>
+      <p>Melalui perkuliahan, diskusi, tugas, dan praktik lapangan, saya belajar terbuka terhadap keragaman karakter peserta didik, memahami pentingnya perencanaan pembelajaran, serta pentingnya refleksi dan pengembangan diri sebagai guru. Pengalaman ini menjadi langkah awal saya mengenali kekuatan, tantangan, dan potensi diri untuk terus bertumbuh dan berkontribusi dalam dunia pendidikan.</p>
+      <div class="tag-row">
+        <span class="tag">Broadcasting</span>
+        <span class="tag">Film</span>
+        <span class="tag">PPG Prajabatan</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLACEHOLDER SECTIONS 
+<section class="placeholder" id="lainnya">
+  <div class="section-head reveal">
+    <div class="eyebrow">02–08</div>
+    <h2 class="section-title">Perjalanan Saya · Rancangan Mengajar · Bahan Ajar · Media Ajar · Praktik Mengajar · Asesmen · Non-Mengajar</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="ph-body reveal">
+    <p>Bagian-bagian ini akan mengikuti bahasa visual yang sama seperti Refleksi di bawah, dan nantinya diisi foto, video, modul ajar, serta dokumentasi lain.</p>
+    <span class="ph-status">Placeholder — belum dibangun di prototipe ini</span>
+  </div>
+</section>
+-->
+
+<!-- REFLEKSI / LK2 -->
+<section id="refleksi">
+  <div class="section-head reveal">
+    <div class="eyebrow">02 — Refleksi</div>
+    <h2 class="section-title">Lembar Kerja 2 (LK 2)</h2>
+    <div class="rule"></div>
+  </div>
+  <p class="lk2-note reveal">
+    Refleksi pengalaman belajar setiap mata kuliah — Semester 1. 
+    <!--Setiap kartu memuat 
+    <em>Refleksi 4C</em> (Connection, Challenge, Concept, Change), 
+    <em>Analisis Artefak</em> pendukung, dan 
+    <em>Kaitan Praktis</em> untuk ruang kelas. -->
+    Total ada
+    <em id="courseCount"></em> mata kuliah.
+  </p>
+  
+  <div class="course-tabs reveal" id="courseTabs"></div>
+  <div id="coursePanels"></div>
+</section>
+</main>
+
+<footer>
+  Portofolio Digital  — <span>Defa Tri Arnetta</span>
+</footer>
+
+<script>
+const courses = [
+  {
+    id: "filosofi",
+    title: "Filosofi Pendidikan",
+    sub: "Semester 1",
+    connection: "Sepanjang mata kuliah Filosofi Pendidikan, saya menemukan banyak pengalaman pribadi yang tiba-tiba \u201cterhubung\u201d dengan makna yang lebih dalam. Saat mempelajari topik mengenal diri sendiri, saya teringat guru saya yang selalu berkata \u201cjaga diri baik-baik\u201d di akhir pembelajaran \u2014 ternyata itu cermin dari betapa besar kekuatan kata-kata seorang guru. Pemahaman ini terhubung dengan pemikiran Ki Hajar Dewantara tentang ing ngarsa sung tuladha, ing madya mangun karsa, tut wuri handayani, yang saya coba praktikkan langsung saat mengajar. Bahkan kebiasaan sederhana seperti berdoa sebelum pelajaran, yang selama ini saya anggap rutinitas, ternyata terhubung dengan Pancasila sebagai sumber nilai pendidikan nasional. Kisah Butet Manurung di Sokola Rimba juga menghubungkan saya pada pentingnya fleksibilitas dan pola pikir bertumbuh, baik pada murid maupun pada diri saya sendiri sebagai calon guru.",
+    challenge: "Tantangan terbesar saya bukan pada pemahaman konsep, melainkan pada praktiknya. Saya mempertanyakan ulang seberapa hati-hati saya nanti dalam memilih kata saat berbicara ke murid, terutama saat mereka melakukan kesalahan atau sedang emosional. Saya juga masih kesulitan menjalankan sistem among secara konsisten sepanjang jam pelajaran (5 jam) \u2014 energi saya cukup terkuras, apalagi saat murid ramai sendiri di kelas. Saya menyadari banyak kebiasaan kelas yang saya jalani otomatis (seperti doa pagi) ternyata punya landasan filosofis yang dalam, dan saya perlu lebih peka mengenali nilai-nilai Pancasila lain (kemanusiaan, kebangsaan, kerakyatan, keadilan sosial) dalam praktik kelas.",
+    concept: [
+      "Ki Hajar Dewantara: guru mendidik lewat teladan dan tutur kata, bukan hanya materi ajar \u2014 kata-kata guru bisa membentuk atau melukai konsep diri anak.",
+      "Sistem among dan gagasan KHD bahwa pendidikan harus mengikuti zamannya (mendidik sekaligus mengasuh).",
+      "Pancasila sebagai sumber nilai pendidikan \u2014 penanaman budi pekerti berdasarkan nilai luhur bangsa.",
+      "Growth mindset berakar dari filosofi \u201cmenuntun\u201d segala kodrat anak menuju keselamatan dan kebahagiaan, sejalan dengan Profil Pelajar Pancasila."
+    ],
+    change: "Saya ingin menjadi guru yang menyelamatkan anak-anak lewat kata-kata positif \u2014 bukan hanya menegur kesalahan, tapi memilih cara bicara yang membangun. Saya ingin belajar mengelola energi mengajar agar sistem among bisa konsisten sepanjang jam pelajaran, merancang kegiatan kelas yang secara eksplisit menghidupkan nilai-nilai Pancasila, serta menerapkan umpan balik yang menekankan proses dan usaha murid, sejalan dengan semangat pola pikir bertumbuh.",
+    artifactName: "Proyek Video Jurnalistik (Naskah Berita &amp; Video Jurnalis)",
+    artifactLinks: [
+      {label:"Folder Naskah Berita", url:"https://drive.google.com/drive/folders/18w3Pj8zHPm2sKMduxjEVWUCo74gw1pmZ?usp=drive_link"},
+      {label:"Folder Video Jurnalis", url:"https://drive.google.com/drive/folders/1Cbf3LR8SMbv-cnaEqSm_5TbGH3EoFmmY"}
+    ],
+    artifactWhy: "Murid dibagi menjadi 9 kelompok, masing-masing menyusun naskah jurnalistik sendiri lalu memproduksi video liputan, bebas membagi peran (presenter, kameramen, penulis naskah) dan memilih aplikasi edit sendiri.",
+    artifactParts: [
+      "<strong>Mengajar sesuai zaman</strong> (kodrat alam &amp; kodrat zaman) \u2014 murid belajar lewat medium yang dekat dengan keseharian mereka.",
+      "<strong>Menuntun, bukan mendikte</strong> (sistem among) \u2014 pembagian peran diserahkan pada inisiatif kelompok, guru hanya mengarahkan.",
+      "<strong>Growth mindset</strong> \u2014 murid diberi ruang mengeksplorasi kemampuan sesuai minat masing-masing."
+    ],
+    praktisIntro: "Konsep utama yang dipelajari: pendidikan bukan sekadar transfer pengetahuan, melainkan proses menuntun kodrat anak sesuai zamannya, dilandasi kata-kata dan sikap guru yang membangun, serta nilai-nilai luhur Pancasila.",
+    praktisList: [
+      "Membiasakan diri berhenti sejenak sebelum bicara ke murid yang berbuat salah, memilih kalimat yang mengoreksi perilaku tanpa merendahkan pribadinya.",
+      "Mencari strategi manajemen energi mengajar (jeda kecil, variasi aktivitas) agar semangat \u201cing madya mangun karsa\u201d bertahan sepanjang jam pelajaran.",
+      "Merancang lebih banyak aktivitas kelas yang secara sadar menanamkan nilai-nilai Pancasila sepanjang proses pembelajaran.",
+      "Menerapkan umpan balik berbasis proses dan usaha, serta terbuka beradaptasi dengan konteks dan kebutuhan murid."
+    ]
+  },
+  {
+    id: "kebugaran",
+    title: "Pengembangan Kebugaran Jasmani",
+    sub: "Semester 1",
+    connection: "Kebugaran fisik dan stabilitas mental merupakan fondasi utama stamina seorang guru. Aktivitas mengajar yang padat (berdiri lama, mengoreksi tugas, mengelola kelas) sangat membutuhkan daya tahan tubuh (endurance) dan regulasi emosi yang baik agar saya dapat mengajar secara efektif, fokus, dan energik tanpa mudah lelah atau stres.",
+    challenge: "Awalnya saya menganggap olahraga harus berdurasi panjang dan menguras energi di pusat kebugaran. Perkuliahan ini mengenalkan konsep micro workout 10\u201315 menit, prinsip body awareness (teknik irradiation dan pelvic tuck pada plank), serta integrasi rutin antara aktivitas kardio dan latihan manajemen stres harian (pacing napas 4-4-4, journaling, meditasi) yang sebelumnya jarang saya kombinasikan secara terstruktur.",
+    concept: [
+      "Pentingnya self-monitoring kebugaran jasmani.",
+      "Teknik core stability untuk menjaga postur tubuh.",
+      "Prinsip \u201cGuru yang bugar melahirkan proses belajar yang segar\u201d \u2014 guru harus menjadi role model gaya hidup sehat dan aktif bagi peserta didik."
+    ],
+    change: "Secara pribadi, saya akan konsisten menjalankan aktivitas fisik/kardio 3\u20134 kali seminggu serta mempraktikkan manajemen stres teratur. Secara profesional di sekolah, saya ingin mengajak peserta didik membangun budaya bergerak aktif, seperti menyisipkan peregangan dinamis di sela jam pelajaran dan merancang program promosi kesehatan seperti kegiatan jalan sehat.",
+    artifactName: "Logbook Program Kardio &amp; Manajemen Stres (4 Minggu)",
+    artifactLinks: [],
+    artifactWhy: "Logbook ini dipilih karena secara sistematis dan terstruktur merekam seluruh tahapan proses latihan saya \u2014 dari tahap adaptasi, peningkatan, hingga pemantapan selama 4 minggu \u2014 merefleksikan kombinasi seimbang antara aktivitas fisik harian dan intervensi kesehatan mental secara konsisten di tengah kesibukan.",
+    artifactParts: [
+      "<strong>Matriks Tahapan (Minggu 1\u20134)</strong> \u2014 membuktikan progresivitas latihan kardio dari jalan kaki ringan 15 menit hingga jogging dan senam kardio.",
+      "<strong>Kolom Manajemen Stres</strong> \u2014 memperlihatkan keteraturan melatih relaksasi (napas dalam, journaling, meditasi).",
+      "<strong>Format Logbook Harian</strong> \u2014 menunjukkan komponen evaluasi diri (Perasaan &amp; Catatan) sebagai bukti self-monitoring kondisi fisik dan psikologis harian."
+    ],
+    praktisIntro: "Konsep utama: kebugaran fisik dan mental adalah fondasi profesi guru, dan konsistensi latihan ringan (micro workout) beserta regulasi emosi efektif menjaga stamina mengajar.",
+    praktisList: [
+      "Menjalankan aktivitas fisik/kardio 3\u20134 kali seminggu secara konsisten, dipadukan dengan manajemen stres harian.",
+      "Menyisipkan peregangan dinamis di sela jam pelajaran agar energi mengajar tetap terjaga sepanjang hari.",
+      "Merancang program promosi kesehatan di sekolah (misalnya kegiatan jalan sehat) untuk menjadi teladan gaya hidup sehat bagi peserta didik."
+    ]
+  },
+  {
+    id: "growth",
+    title: "Growth Mindset",
+    sub: "Semester 1",
+    connection: "Pengalaman belajar yang paling berkesan adalah memahami perbedaan antara fixed mindset dan growth mindset. Melalui refleksi, diskusi, dan studi kasus, saya menyadari bahwa keberhasilan seseorang tidak hanya ditentukan oleh bakat, tetapi juga kemauan untuk terus belajar, menerima tantangan, dan memperbaiki diri melalui proses berkelanjutan. Sebagai calon guru, pemahaman Growth Mindset penting karena guru tidak hanya mengajarkan materi, tetapi juga membangun pola pikir peserta didik agar percaya bahwa kemampuan mereka dapat berkembang melalui latihan, usaha, dan pengalaman \u2014 sekaligus menjadi teladan semangat belajar sepanjang hayat.",
+    challenge: "Tantangan terbesar adalah mengubah kebiasaan berpikir yang terkadang masih berorientasi pada hasil akhir dibandingkan proses belajar, dan rasa kurang percaya diri saat menghadapi materi atau tugas sulit karena takut melakukan kesalahan. Hal ini terjadi karena proses belajar selama ini sering menekankan nilai dan hasil daripada proses perkembangan kemampuan, sehingga kesalahan terasa seperti kegagalan \u2014 padahal mata kuliah ini mengajarkan bahwa kesalahan adalah bagian penting dari proses belajar dan kesempatan untuk berkembang.",
+    concept: [
+      "Growth Mindset \u2014 keyakinan bahwa kemampuan dapat berkembang melalui usaha, strategi yang tepat, latihan, dan umpan balik.",
+      "Fixed Mindset \u2014 keyakinan bahwa kemampuan bersifat tetap sehingga cenderung menghindari tantangan.",
+      "Pentingnya proses belajar, refleksi, ketekunan (perseverance), dan pembelajaran dari kesalahan.",
+      "Peran guru membangun lingkungan belajar yang aman sehingga peserta didik berani mencoba, bertanya, dan tidak takut gagal \u2014 berkaitan erat dengan Pemahaman Peserta Didik, Pembelajaran Berdiferensiasi, PSE, dan Asesmen."
+    ],
+    change: "Memandang setiap tantangan sebagai kesempatan belajar, bukan hambatan; tidak mudah menyerah menghadapi kesulitan mengajar maupun belajar; lebih terbuka menerima kritik dan masukan sebagai bahan evaluasi diri; membiasakan refleksi setelah setiap kegiatan pembelajaran; serta membangun budaya kelas yang menghargai proses, usaha, kerja keras, dan keberanian mencoba.",
+    artifactName: "Jurnal Refleksi Growth Mindset, LK, Diskusi Kelompok &amp; Presentasi",
+    artifactLinks: [
+      {label:"Folder Artefak", url:"https://drive.google.com/drive/folders/1GJanxEyLnxyY_e8e-DuVheI7MpHmcEfN?usp=sharing"}
+    ],
+    artifactWhy: "Artefak ini menunjukkan perkembangan cara berpikir saya selama perkuliahan \u2014 melalui jurnal refleksi dan tugas yang dikerjakan, terlihat bagaimana saya mulai memahami bahwa proses belajar, usaha, dan evaluasi diri adalah faktor penting dalam meningkatkan kompetensi sebagai calon guru.",
+    artifactParts: [
+      "<strong>Bagian refleksi diri</strong> \u2014 menunjukkan perubahan pola pikir dari berorientasi hasil menjadi lebih menghargai proses belajar.",
+      "<strong>Bagian tugas diskusi</strong> \u2014 menunjukkan kemampuan menganalisis penerapan Growth Mindset dalam pembelajaran.",
+      "<strong>Bagian presentasi</strong> \u2014 menunjukkan pemahaman strategi guru dalam membangun motivasi belajar, keberanian menghadapi tantangan, dan budaya belajar positif di kelas."
+    ],
+    praktisIntro: "Konsep utama: kemampuan peserta didik dapat berkembang melalui usaha, strategi, latihan, dan umpan balik \u2014 sehingga guru berperan membangun lingkungan belajar yang aman dan menghargai proses.",
+    praktisList: [
+      "Memandang tantangan di kelas sebagai kesempatan belajar, bukan hambatan, dan tidak mudah menyerah saat mengajar terasa sulit.",
+      "Lebih terbuka menerima kritik dan masukan sebagai bahan evaluasi diri.",
+      "Membiasakan refleksi rutin setelah setiap kegiatan pembelajaran.",
+      "Membangun budaya kelas yang menghargai proses, usaha, dan keberanian mencoba pada peserta didik."
+    ]
+  },
+  {
+    id: "pmad",
+    title: "Pembelajaran Mendalam di SMK (PMAD)",
+    sub: "Semester 1",
+    connection: "Mata kuliah ini memberikan pemahaman yang relevan dengan peran saya sebagai calon guru SMK bidang Broadcasting dan Perfilman. Saya menyadari bahwa proses belajar di SMK tidak cukup hanya berfokus pada teori, tetapi harus menghubungkan pengetahuan dengan kebutuhan nyata dunia kerja dan industri (DUDI). Konsep pembelajaran yang berkesadaran (mindful), bermakna (meaningful), dan menggembirakan (joyful) membantu saya memahami bahwa peserta didik lebih mudah membangun kompetensi lewat permasalahan autentik yang dekat dengan bidang keahlian mereka \u2014 peserta didik lebih aktif ketika diberi tugas berbasis proyek dan studi kasus dibanding pembelajaran satu arah.",
+    challenge: "Tantangan terbesar adalah merancang pembelajaran yang mengintegrasikan kebutuhan dunia kerja dengan karakteristik peserta didik yang beragam \u2014 menyusun studi kasus autentik yang sesuai capaian pembelajaran sekaligus menarik, serta menyelaraskan tujuan, aktivitas, dan asesmen secara sistematis. Penerapan pembelajaran inklusif juga membutuhkan pemahaman mendalam tentang kebutuhan setiap peserta didik, dan saya menyadari perlunya melakukan refleksi berbasis data secara objektif, bukan hanya menilai keberhasilan dari ketercapaian materi.",
+    concept: [
+      "Pembelajaran mendalam adalah proses belajar yang dirancang untuk menghasilkan pemahaman bermakna, berpikir kritis, dan kesiapan menghadapi dunia kerja.",
+      "Keselarasan antara tujuan pembelajaran, aktivitas pembelajaran, dan asesmen.",
+      "Pembelajaran harus dapat diakses oleh seluruh peserta didik melalui berbagai alternatif representasi, keterlibatan, dan ekspresi belajar.",
+      "Evaluasi dan refleksi berbasis bukti \u2014 guru terus melakukan perbaikan berkelanjutan berdasarkan data hasil belajar."
+    ],
+    change: "Sebelumnya saya lebih berfokus pada penyampaian materi dan penyelesaian target pembelajaran. Kini saya memahami keberhasilan pembelajaran diukur dari sejauh mana peserta didik memahami, menerapkan, dan memaknai pembelajaran dalam konteks nyata. Ke depan, saya akan lebih mengutamakan studi kasus autentik, proyek berbasis dunia kerja, serta asesmen yang menggambarkan perkembangan peserta didik secara menyeluruh, dan menjadikan refleksi berbasis data sebagai bagian dari praktik profesional saya.",
+    artifactName: "Modul Ajar Pembelajaran Mendalam",
+    artifactLinks: [
+      {label:"Folder Modul Ajar", url:"https://drive.google.com/drive/folders/1p8tLcVgjZlrDMnrUdvVys6RYR2EgzArj?usp=sharing"}
+    ],
+    artifactWhy: "Modul ajar ini menunjukkan implementasi konsep pembelajaran mendalam yang dipelajari selama mata kuliah \u2014 memuat perencanaan pembelajaran berbasis proyek, pertanyaan pemantik kontekstual, asesmen diagnostik/formatif/sumatif, serta penerapan diferensiasi sesuai karakteristik peserta didik.",
+    artifactParts: [
+      "Menjadi bukti kemampuan merancang pembelajaran yang bermakna dan berpusat pada peserta didik.",
+      "Relevan dengan kebutuhan dunia kerja pada bidang Broadcasting dan Perfilman."
+    ],
+    praktisIntro: "Konsep utama yang paling bermakna: pentingnya pembelajaran yang kontekstual, inklusif, dan berorientasi pada kebutuhan dunia kerja.",
+    praktisList: [
+      "Menerapkan pembelajaran berbasis proyek dan studi kasus yang relevan dengan bidang Broadcasting dan Perfilman.",
+      "Memulai pembelajaran dengan asesmen diagnostik untuk mengetahui kesiapan belajar peserta didik.",
+      "Menggunakan asesmen formatif untuk memantau perkembangan belajar secara berkelanjutan.",
+      "Membiasakan diri melakukan refleksi dan menyusun rencana tindak lanjut berdasarkan data hasil belajar."
+    ]
+  },
+  {
+    id: "peserta-didik",
+    title: "Pemahaman Peserta Didik dan Pembelajarannya",
+    sub: "Semester 1",
+    connection: "Pengalaman belajar yang paling berguna adalah melakukan asesmen awal dan profiling peserta didik, sangat terkait dengan praktik mengajar saya selama PPL pada mata pelajaran Seni Film kelas X Produksi Film. Sebelumnya saya cenderung memandang peserta didik sebagai kelompok yang relatif sama, tetapi setelah mempelajari karakteristik peserta didik, asesmen diagnostik, gaya belajar, dan diferensiasi pembelajaran, saya memahami bahwa setiap peserta didik memiliki keunikan yang perlu dikenali sebelum pembelajaran dirancang. Pada proyek pembuatan film pendek, terlihat jelas ada siswa yang unggul menyusun storyboard dan editing, ada yang aktif berdiskusi dan menyutradarai, serta ada yang lebih berkembang saat terlibat langsung dalam produksi.",
+    challenge: "Tantangan paling menonjol adalah mengubah cara pandang bahwa keberhasilan pembelajaran ditentukan oleh kemampuan guru menjelaskan materi \u2014 ternyata pemahaman terhadap peserta didik adalah fondasi utama pembelajaran yang efektif. Saat profiling kelas X Produksi Film, saya menemukan keragaman kemampuan, minat, karakter, dan gaya belajar yang sangat beragam (visual, diskusi, praktik langsung), sehingga satu metode pembelajaran saja tidak akan memenuhi kebutuhan seluruh peserta didik \u2014 karena peserta didik bukan kelompok homogen, melainkan individu unik dengan kebutuhan belajar yang berbeda.",
+    concept: [
+      "Peserta didik adalah individu unik dengan kebutuhan belajar berbeda-beda, sehingga pembelajaran harus dirancang berdasarkan hasil asesmen dan profiling.",
+      "Asesmen diagnostik sebagai langkah awal memperoleh informasi kemampuan awal, minat, gaya belajar, dan kebutuhan peserta didik.",
+      "Diferensiasi pembelajaran memungkinkan guru memberikan pengalaman belajar yang sesuai karakteristik siswa.",
+      "Berkaitan erat dengan Pembelajaran Mendalam, Asesmen Pembelajaran, dan Praktik Pengalaman Lapangan \u2014 hasil profiling menjadi dasar memilih model, asesmen, dan aktivitas pembelajaran."
+    ],
+    change: "Saya berkomitmen untuk selalu memulai pembelajaran dengan mengenali karakteristik peserta didik terlebih dahulu, membiasakan diri melakukan asesmen awal dan profiling sebelum menyusun modul ajar, serta menerapkan strategi pembelajaran yang lebih adaptif dan diferensiatif. Dalam pembelajaran Seni Film, saya akan memberi ruang bagi siswa visual untuk mengembangkan desain visual/editing, siswa auditori untuk berperan dalam diskusi/penulisan naskah/penyutradaraan, dan siswa kinestetik untuk terlibat dalam praktik produksi dan pengoperasian peralatan film.",
+    artifactName: "Instrumen Profiling Peserta Didik",
+    artifactLinks: [
+      {label:"Dokumen Instrumen", url:"https://drive.google.com/file/d/1MuTNFHsas5tfmuvg5s7vD5jdLsqHyNlN/view?usp=drive_link"}
+    ],
+    artifactWhy: "Dipilih karena merupakan bukti paling relevan dan bermakna dalam menunjukkan pemahaman terhadap karakteristik peserta didik sebagai dasar perancangan pembelajaran \u2014 memetakan kemampuan awal, minat, gaya belajar, potensi, dan kebutuhan belajar siswa.",
+    artifactParts: [
+      "Hasil profiling peserta didik kelas X Produksi Film memuat data gaya belajar, minat, potensi, dan kebutuhan belajar yang beragam.",
+      "Temuan ini menjadi dasar refleksi bahwa memahami peserta didik adalah langkah awal penting sebelum merancang pembelajaran yang adaptif dan berdiferensiasi."
+    ],
+    praktisIntro: "Konsep utama: peserta didik adalah individu unik dengan kebutuhan belajar berbeda, sehingga asesmen awal dan diferensiasi menjadi dasar perancangan pembelajaran.",
+    praktisList: [
+      "Membiasakan diri melakukan asesmen awal dan profiling peserta didik sebelum menyusun modul ajar.",
+      "Menerapkan strategi pembelajaran yang adaptif dan diferensiatif sesuai potensi masing-masing siswa.",
+      "Memberi ruang bagi siswa visual, auditori, dan kinestetik untuk berkontribusi sesuai kekuatan mereka dalam proyek produksi film."
+    ]
+  }
+];
+
+const tabsEl = document.getElementById('courseTabs');
+const panelsEl = document.getElementById('coursePanels');
+document.getElementById('courseCount').textContent = courses.length;
+
+courses.forEach((c, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'course-tab' + (i===0 ? ' active' : '');
+  tab.dataset.target = c.id;
+  tab.innerHTML = `<span class="tab-index">0${i+1}</span>${c.title}`;
+  tab.addEventListener('click', () => showCourse(c.id));
+  tabsEl.appendChild(tab);
+
+  const panel = document.createElement('div');
+  panel.className = 'course-panel' + (i===0 ? ' active' : '');
+  panel.id = c.id;
+  panel.innerHTML = `
+    <div class="course-heading">
+      <h3>${c.title}</h3>
+      <div class="sub">${c.sub} · Refleksi Pengalaman Belajar</div>
+    </div>
+
+    <div class="block-title">Refleksi 4C</div>
+    <div class="fourc-grid">
+      <div class="fourc-card"><span class="fourc-id">01</span><div class="fourc-label">Connection</div><p>${c.connection}</p></div>
+      <div class="fourc-card"><span class="fourc-id">02</span><div class="fourc-label">Challenge</div><p>${c.challenge}</p></div>
+      <div class="fourc-card"><span class="fourc-id">03</span><div class="fourc-label">Concept</div><ul>${c.concept.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div class="fourc-card"><span class="fourc-id">04</span><div class="fourc-label">Change</div><p>${c.change}</p></div>
+    </div>
+
+    <div class="block-title">Analisis Artefak</div>
+    <div class="artifact-box">
+      <div class="artifact-name">${c.artifactName}</div>
+      ${c.artifactLinks.length ? `<div class="artifact-links">${c.artifactLinks.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('')}</div>` : ''}
+      <p>${c.artifactWhy}</p>
+      <ul>${c.artifactParts.map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>
+
+    <div class="block-title">Kaitan Praktis</div>
+    <div class="praktis-box">
+      <p>${c.praktisIntro}</p>
+      <ul>${c.praktisList.map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>
+  `;
+  panelsEl.appendChild(panel);
+});
+
+function showCourse(id){
+  document.querySelectorAll('.course-tab').forEach(t=>t.classList.toggle('active', t.dataset.target===id));
+  document.querySelectorAll('.course-panel').forEach(p=>p.classList.toggle('active', p.id===id));
+}
+
+// active nav link on scroll
+const navAnchors = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navAnchors.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+    }
+  });
+},{threshold:0.4});
+['tentang','refleksi'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) navObs.observe(el);
+});
+
+// scroll reveal animation
+const revealObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+</script>
+</body>
+</html>
